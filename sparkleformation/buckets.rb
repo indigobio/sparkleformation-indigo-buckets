@@ -5,7 +5,7 @@ EOF
 
   # Administrative buckets
   dynamic!(:bucket, 'chef', :bucket_name => "ascent-#{ENV['environment']}-chef", :acl => 'BucketOwnerFullControl', :purpose => 'chef')
-  dynamic!(:owner_write_bucket_policy, 'chef', :bucket => 'ChefS3Bucket')
+  dynamic!(:owner_write_roles_read_bucket_policy, 'chef', :bucket => 'ChefS3Bucket')
 
   dynamic!(:bucket, 'lambda', :bucket_name => "ascent-#{ENV['environment']}-lambda", :acl => 'BucketOwnerFullControl', :purpose => 'lambda')
   dynamic!(:owner_write_bucket_policy, 'lambda', :bucket => 'LambdaS3Bucket')
