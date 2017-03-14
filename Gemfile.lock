@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gswallow/sparkle-pack-git-rev-outputs.git
-  revision: 7d52a13886888a23d0df86c02d8718980c5890d6
+  revision: 146e854160fbd15c4ab6e851576756f0c313676a
   specs:
     sparkle-pack-git-rev-outputs (0.0.1)
 
