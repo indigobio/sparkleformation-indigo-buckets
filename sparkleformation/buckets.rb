@@ -1,4 +1,4 @@
-SparkleFormation.new(:buckets).load(:base).overrides do
+SparkleFormation.new(:buckets).load(:base, :git_rev_outputs).overrides do
   description <<EOF
 Creates S3 buckets to hold data in transit and for administrative services like Chef and AWS Lambda
 EOF
