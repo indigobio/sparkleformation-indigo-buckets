@@ -10,8 +10,8 @@ EOF
   dynamic!(:bucket, 'lambda', :bucket_name => "ascent-#{ENV['environment']}-lambda", :acl => 'BucketOwnerFullControl', :purpose => 'lambda')
   dynamic!(:owner_write_bucket_policy, 'lambda', :bucket => 'LambdaS3Bucket')
 
-  dynamic!(:bucket, 'k8s', :bucket_name => "ascent-#{ENV['environment']}-k8s-store", :acl => 'BucketOwnerFullControl', :purpose => 'k8s')
-  dynamic!(:owner_write_bucket_policy, 'k8s', :bucket => 'K8sS3Bucket')
+  dynamic!(:bucket, 'kops', :bucket_name => "ascent-#{ENV['environment']}-kops-state-store", :acl => 'BucketOwnerFullControl', :purpose => 'kops')
+  dynamic!(:owner_write_bucket_policy, 'kops', :bucket => 'KopsS3Bucket')
 
   # Buckets for use by services
   dynamic!(:bucket, 'archival', :bucket_name => "ascent-#{ENV['environment']}-archival", :acl => 'BucketOwnerFullControl')
