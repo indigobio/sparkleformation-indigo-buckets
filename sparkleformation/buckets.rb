@@ -13,6 +13,9 @@ EOF
   dynamic!(:bucket, 'kops', :bucket_name => "ascent-#{ENV['environment']}-kops-state-store", :acl => 'BucketOwnerFullControl', :purpose => 'kops')
   dynamic!(:owner_write_bucket_policy, 'kops', :bucket => 'KopsS3Bucket')
 
+  dynamic!(:bucket, 'elb_logs', :bucket_name => "ascent-#{ENV['environment']}-elb-logs", :acl => 'BucketOwnerFullControl', :purpose => 'elb-logs', :lifecycle_rules => [{:expiration_in_days => 7}])
+  dynamic!(:owner_write_bucket_policy, 'elb_logs', :bucket => 'ElbLogsS3Bucket')
+
   # Buckets for use by services
   dynamic!(:bucket, 'archival', :bucket_name => "ascent-#{ENV['environment']}-archival", :acl => 'BucketOwnerFullControl')
   dynamic!(:owner_write_bucket_policy, 'archival', :bucket => 'AssetsS3Bucket')
