@@ -23,7 +23,7 @@ for bucket in $(aws s3api list-buckets --query 'Buckets[?contains(Name, `'$envir
 done
 
 # Tear down the stack
-stack=$(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE \
+stack=$(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE DELETE_FAILED \
   --query 'StackSummaries[].StackId' --output table | grep ${environment}-buckets-${AWS_DEFAULT_REGION} \
   | awk '{print $2}')
 
