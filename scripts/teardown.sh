@@ -14,6 +14,20 @@ run_if_yes () {
   esac
 }
 
+del_stack () {
+  stack=$1
+  run_if_yes "aws cloudformation delete-stack --stack-name $stack"
+  echo -n "Waiting for resource deletion"
+  while [ "$(aws cloudformation describe-stacks --stack-name $stack --query 'Stacks[].StackStatus' --output text)" == "DELETE_IN_PROGRESS" ]; do
+    echo -n .
+    sleep 1
+  done
+  if [ "$(aws cloudformation describe-stacks --stack-name $stack --query 'Stacks[].StackStatus' --output text)" == "DELETE_FAILED" ]; then
+    echo "$stack failed to delete"
+    exit 1
+  fi
+}
+
 # Remove buckets
 for bucket in $(aws s3api list-buckets --query 'Buckets[?contains(Name, `'$environment'`) == `true`].Name' --output text); do
   if [ $(aws s3api get-bucket-tagging --bucket $bucket --query 'TagSet[?Key == `Environment`].Value' --output text) == $environment ]; then
@@ -27,5 +41,4 @@ stack=$(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPD
   --query 'StackSummaries[].StackId' --output table | grep ${environment}-buckets-${AWS_DEFAULT_REGION} \
   | awk '{print $2}')
 
-cmd="aws cloudformation delete-stack --stack-name $stack"
-run_if_yes "$cmd"
+del_stack $stack
